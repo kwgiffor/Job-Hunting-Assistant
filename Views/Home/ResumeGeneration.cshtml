@@ -101,7 +101,7 @@
                 data: { id: jobListingId },
                 success: function (resume) {
                     $.ajax({
-                        url: '/JobListing/AddResume',
+                        url: '/JobListing/AddResumeToJobListing',
                         type: 'POST',
                         data: { jobListingId: jobListingId, resume: resume },
                         success: function (data) {

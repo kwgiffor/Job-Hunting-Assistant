@@ -22,7 +22,7 @@ namespace JobHuntingAssistant.Controllers
         /// Action for adding a resume to a job listing
         /// </summary>
         [HttpPost]
-        public IActionResult AddResume(int id, Resume resume)
+        public IActionResult AddResumeToJobListing(int jobListingId, Resume resume)
         {
             if (resume == null)
             {
@@ -30,14 +30,14 @@ namespace JobHuntingAssistant.Controllers
             }
             try
             {
-                _jobListingService.AddResumeToJobListing(id, resume);
+                _jobListingService.AddResumeToJobListing(jobListingId, resume);
             }
             catch (Exception e)
             {
                 _logger.Log(LogLevel.Error, e.Message);
                 return NotFound();
             }
-            return RedirectToAction("Details", new { id });
+            return RedirectToAction("Details", new { id = jobListingId });
         }
 
         /// <summary>

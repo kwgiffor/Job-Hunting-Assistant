@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Rebecca\\Documents\\_Projects\\ResumeToolProject\\JobHuntingAssistant\\JobHuntingAssistant.csproj": {}
+    "C:\\Users\\Rebecca\\Documents\\_Projects\\JobHuntingAssistant\\JobHuntingAssistant.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Rebecca\\Documents\\_Projects\\ResumeToolProject\\JobHuntingAssistant\\JobHuntingAssistant.csproj": {
+    "C:\\Users\\Rebecca\\Documents\\_Projects\\JobHuntingAssistant\\JobHuntingAssistant.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Rebecca\\Documents\\_Projects\\ResumeToolProject\\JobHuntingAssistant\\JobHuntingAssistant.csproj",
+        "projectUniqueName": "C:\\Users\\Rebecca\\Documents\\_Projects\\JobHuntingAssistant\\JobHuntingAssistant.csproj",
         "projectName": "JobHuntingAssistant",
-        "projectPath": "C:\\Users\\Rebecca\\Documents\\_Projects\\ResumeToolProject\\JobHuntingAssistant\\JobHuntingAssistant.csproj",
+        "projectPath": "C:\\Users\\Rebecca\\Documents\\_Projects\\JobHuntingAssistant\\JobHuntingAssistant.csproj",
         "packagesPath": "C:\\Users\\Rebecca\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Rebecca\\Documents\\_Projects\\ResumeToolProject\\JobHuntingAssistant\\obj\\",
+        "outputPath": "C:\\Users\\Rebecca\\Documents\\_Projects\\JobHuntingAssistant\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Rebecca\\AppData\\Roaming\\NuGet\\NuGet.Config"

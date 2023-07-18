@@ -480,11 +480,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Rebecca\\Documents\\_Projects\\ResumeToolProject\\JobHuntingAssistant\\JobHuntingAssistant.csproj",
+      "projectUniqueName": "c:\\Users\\Rebecca\\Documents\\_Projects\\JobHuntingAssistant\\JobHuntingAssistant.csproj",
       "projectName": "JobHuntingAssistant",
-      "projectPath": "c:\\Users\\Rebecca\\Documents\\_Projects\\ResumeToolProject\\JobHuntingAssistant\\JobHuntingAssistant.csproj",
+      "projectPath": "c:\\Users\\Rebecca\\Documents\\_Projects\\JobHuntingAssistant\\JobHuntingAssistant.csproj",
       "packagesPath": "C:\\Users\\Rebecca\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Rebecca\\Documents\\_Projects\\ResumeToolProject\\JobHuntingAssistant\\obj\\",
+      "outputPath": "c:\\Users\\Rebecca\\Documents\\_Projects\\JobHuntingAssistant\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Rebecca\\AppData\\Roaming\\NuGet\\NuGet.Config"
