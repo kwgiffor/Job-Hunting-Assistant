@@ -1,0 +1,17 @@
+﻿@model JobHuntingAssistant.Models.User
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h1>Welcome to ResumeTool!</h1>
+
+<p>Start by adding your information:</p>
+
+<form asp-controller="User" asp-action="AddUserInfo" method="post">
+    <div>
+        <label for="oldResume">Old Resume:</label>
+        <textarea id="oldResume" name="OldResume" required>@Model.OldResume</textarea>
+    </div>
+    <button type="submit">Add Info</button>
+</form>

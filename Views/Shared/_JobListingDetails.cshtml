@@ -1,0 +1,17 @@
+@model JobHuntingAssistant.Models.JobListing
+
+<div>
+    <h2>@Model.Title</h2>
+    <p>@Model.Description</p>
+    @if (Model.Resumes.Count > 0)
+    {
+        var mostRecentResume = Model.Resumes.Last();
+        <h3>Most Recent Resume for this Job Listing</h3>
+        <p>@mostRecentResume.Content</p>
+    }
+    else
+    {
+        <p>No resumes generated for this job listing yet.</p>
+    }
+    <button type="button" class="btn btn-primary" id="generateResumeButton">Generate Resume</button>
+</div>

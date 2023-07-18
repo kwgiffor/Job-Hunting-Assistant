@@ -1,0 +1,129 @@
+@model JobHuntingAssistant.Models.ResumeGenerationViewModel
+
+@await Html.PartialAsync("_AddJobListingModal")
+
+@{
+    ViewBag.Title = "Generate Resume";
+}
+
+<h1>Generate Resume</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Job Listings</h2>
+        <div class="list-group">
+            @for (var i = 0; i < Model.JobListings.Count; i++)
+            {
+                <button type="button" class="list-group-item list-group-item-action" data-index="@i">@Model.JobListings[i].Title</button>
+            }
+        </div>
+        <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#addJobListingModal">
+        Add Job Listing
+        </button>
+    </div>
+    <div class="col-md-8" id="jobListingDetails">
+        @if (Model.JobListings.Count > 0 && Model.SelectedJobListingIndex >= 0 && Model.SelectedJobListingIndex < Model.JobListings.Count)
+        {
+            var selectedJobListing = Model.JobListings[Model.SelectedJobListingIndex];
+            <h2>@selectedJobListing.Title</h2>
+            <p>@selectedJobListing.Description</p>
+            @if (selectedJobListing.Resumes.Count > 0)
+            {
+                var mostRecentResume = selectedJobListing.Resumes.Last();
+                <h3>Most Recent Resume for this Job Listing</h3>
+                <p>@mostRecentResume.Content</p>
+            }
+            else
+            {
+                <p>No resumes generated for this job listing yet.</p>
+            }
+        }
+        else
+        {
+            <p>Select a job listing to see its details.</p>
+        }
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+    $(document).ready(function () {
+        $(document).on('submit', '#addJobListingForm', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function (data) {
+                    // close the modal
+                    $('#addJobListingModal').modal('hide');
+
+                    // update the job listings on the page
+                    var jobListingHtml = '<button type="button" class="list-group-item list-group-item-action" data-index="' + data.jobListing.id + '">' + data.jobListing.title + '</button>';
+                    $('.list-group').append(jobListingHtml);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // handle error
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+
+        $(document).on('click', '.list-group-item', function (e) {
+
+            e.preventDefault();
+
+            var jobListingId = $(this).data('index');
+
+            $.ajax({
+                url: '/JobListing/GetJobListing',
+                type: 'GET',
+                data: { id: jobListingId },
+                success: function (data) {
+                    // update the job listing details on the page
+                    $('#jobListingDetails').html(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // handle error
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+
+        $(document).on('click', '#generateResumeButton', function () {
+            var jobListingId = $('.list-group-item.active').data('index');
+
+            $.ajax({
+                url: '/Resume/GenerateResume',
+                type: 'POST',
+                data: { id: jobListingId },
+                success: function (resume) {
+                    $.ajax({
+                        url: '/JobListing/AddResume',
+                        type: 'POST',
+                        data: { jobListingId: jobListingId, resume: resume },
+                        success: function (data) {
+                            // update the job listing details on the page
+                            $('#jobListingDetails').html(data);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            // handle error
+                            console.log(textStatus, errorThrown);
+                        }
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // handle error
+                    console.log(textStatus, errorThrown);
+                }
+            });
+        });
+
+
+    });
+    </script>
+}
+
+

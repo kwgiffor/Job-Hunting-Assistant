@@ -1,0 +1,25 @@
+<div class="modal fade" id="addJobListingModal" tabindex="-1" role="dialog" aria-labelledby="addJobListingModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addJobListingModalLabel">Add Job Listing</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addJobListingForm" asp-controller="JobListing" asp-action="AddJobListing" method="post">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="Title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" name="Description" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Job Listing</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

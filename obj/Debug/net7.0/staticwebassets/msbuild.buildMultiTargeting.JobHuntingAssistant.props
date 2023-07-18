@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\JobHuntingAssistant.props" />
+</Project>
