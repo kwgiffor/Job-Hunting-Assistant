@@ -4,6 +4,5 @@ namespace JobHuntingAssistant.Models
     {
         public int Id { get; set; }
         public string OldResume { get; set; } = "";
-        public ICollection<Resume> Resumes { get; set; } = new List<Resume>();
     }
 }
