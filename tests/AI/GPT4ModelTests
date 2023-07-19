@@ -1,0 +1,30 @@
+using Xunit;
+using Moq;
+using OpenAI_API;
+using OpenAI_API.Chat;
+using JobHuntingAssistant.AI;
+
+public class GPT4ModelTests
+{
+    [Fact]
+    public void Prompt_CallsCreateChatCompletionAsyncWithCorrectParameters()
+    {
+        // Arrange
+        var mockApi = new Mock<IOpenAIAPI>();
+        var model = new GPT4Model(mockApi.Object);
+        var prompt = "Test Prompt";
+
+        // Act
+        model.Prompt(prompt);
+
+        // Assert
+        mockApi.Verify(api => api.Chat.CreateChatCompletionAsync(It.Is<ChatRequest>(request =>
+            request.Model == OpenAI_API.Models.Model.GPT4 &&
+            request.Temperature == 0.8 &&
+            request.MaxTokens == 1500 &&
+            request.Messages.Length == 1 &&
+            request.Messages[0].Role == ChatMessageRole.User &&
+            request.Messages[0].Content == prompt
+        )), Times.Once);
+    }
+}
