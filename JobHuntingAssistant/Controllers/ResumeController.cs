@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
 using JobHuntingAssistant.Models;
 using JobHuntingAssistant.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobHuntingAssistant.Controllers
 {
     /// <summary>
     /// Controller for handling the generation of resumes
     /// </summary>
+    [Authorize]
     public class ResumeController : Controller
     {
         private readonly IResumeGenerationService _resumeGenerationService;

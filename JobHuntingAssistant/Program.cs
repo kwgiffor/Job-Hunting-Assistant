@@ -1,5 +1,6 @@
 using JobHuntingAssistant.Services;
 using JobHuntingAssistant.AI;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,18 @@ builder.Services.AddScoped<IUserService, SingleUserService>();
 builder.Services.AddScoped<IJobListingService, InMemoryJobListingService>();
 builder.Services.AddScoped<IAIModel, GPT4Model>();
 builder.Services.AddScoped<IResumeGenerationService, AIResumeGenerationService>();
+
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/User/Login"; // This should be the path to your login action
+});
 
 
 var app = builder.Build();
@@ -28,6 +41,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllerRoute(

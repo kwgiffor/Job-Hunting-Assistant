@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using JobHuntingAssistant.Models;
 using JobHuntingAssistant.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobHuntingAssistant.Controllers
 {
@@ -29,6 +30,7 @@ namespace JobHuntingAssistant.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult ResumeGeneration()
         {
             var model = new ResumeGenerationViewModel

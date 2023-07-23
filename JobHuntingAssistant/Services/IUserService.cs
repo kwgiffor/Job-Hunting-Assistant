@@ -26,5 +26,10 @@ namespace JobHuntingAssistant.Services
         /// Updates a user in the database.
         /// </summary>
         void UpdateUser(User user);
+
+        /// <summary>
+        /// Validates user credentials.
+        /// </summary>
+        bool ValidateUserCredentials(string username, string password);
     }
 }
