@@ -22,7 +22,7 @@ namespace JobHuntingAssistant.Controllers
         }
 
         /// <summary>
-        /// Action to display the login page
+        /// GET: /User/Login
         /// </summary>
         [HttpGet]
         public IActionResult Login()
@@ -43,7 +43,7 @@ namespace JobHuntingAssistant.Controllers
 
 
         /// <summary>
-        /// Action to log a user in
+        /// POST: /User/Login
         /// </summary>
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -62,7 +62,7 @@ namespace JobHuntingAssistant.Controllers
             // If the credentials are invalid, display an error message
             if (!_userService.ValidateUserCredentials(model.Email, model.Password))
             {
-                ModelState.AddModelError("", "Invalid username or password.");
+                ModelState.AddModelError("", "Invalid email or password.");
                 return View(model);
             }
 
@@ -83,6 +83,9 @@ namespace JobHuntingAssistant.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// POST: /User/Logout
+        /// </summary>
         public async Task<IActionResult> Logout()
         {
             // Action to log a user out
@@ -90,89 +93,76 @@ namespace JobHuntingAssistant.Controllers
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "User");
         }
 
-
+        /// <summary>
+        /// GET: /User/SignUp
+        /// </summary>
+        [HttpGet]
+        public IActionResult SignUp()
+        {
+            return View();
+        }
 
         /// <summary>
-        /// Action to add a new user
+        /// POST: /User/SignUp
         /// </summary>
         [HttpPost]
-        public IActionResult AddUserInfo(User user)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SignUp(SignUpViewModel model)
         {
-            // Add the user to the database
-            // If successful, redirect to the resume generation page
-            // If not, display an error message
-            // If the user is invalid, display an error message
-
-            Console.WriteLine($" UserController User: {user}");
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _userService.AddUser(user);
-                    return RedirectToAction("ResumeGeneration", "Home");
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error adding user");
-                    ModelState.AddModelError("", "An error occurred while adding the user.");
-                }
+                // Create a new user
+                var user = new User { Email = model.Email };
+
+                // Hash the password and store it in the user object
+                user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(model.Password);
+
+                // Add the user to the database
+                await _userService.AddUser(user);
+
+                // Redirect the user to the login page
+                return RedirectToAction("Login", "User");
             }
-            else
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        /// <summary>
+        /// GET: /User/Edit
+        /// </summary>
+        [HttpGet]
+        public IActionResult EditUser(int id)
+        {
+            var user = _userService.GetUser(id);
+            if (user == null)
             {
-                ModelState.AddModelError("", "The provided data is not valid.");
+                return NotFound();
             }
 
             return View(user);
         }
 
-        /// <summary>
-        /// Action to view a user's information
-        /// </summary>
-        public IActionResult ViewUserInfo(int id)
-        {
-            // Get the user's information
-            // If successful, display the information
-            // If not, display an error message
-
-            try
-            {
-                var user = _userService.GetUser(id);
-                return View(user);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error viewing user");
-            }
-
-            return View();
-        }
 
         /// <summary>
-        /// Updates a user's information
+        /// POST: /User/Edit
         /// </summary>
         [HttpPost]
-        public IActionResult UpdateUserInfo(User user)
+        public async Task<IActionResult> EditUser(User user)
         {
-            // Update the user's information
-            // If successful, redirect to the user's information page
-            // If not, display an error message
-            // If the user is invalid, display an error message
-
-            Console.WriteLine($" UserController User: {user}");
-            
             if (ModelState.IsValid)
             {
-                try
+                var result = await _userService.UpdateUser(user);
+                if (result)
                 {
-                    _userService.UpdateUser(user);
                     return RedirectToAction("ViewUserInfo", new { id = user.Id });
                 }
-                catch (Exception ex)
+                else
                 {
-                    _logger.LogError(ex, "Error updating user");
+                    ModelState.AddModelError("", "An error occurred while updating the user.");
                 }
             }
 

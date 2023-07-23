@@ -13,14 +13,14 @@ namespace JobHuntingAssistant.Services
         {
         }
         
-        public bool ValidateUserCredentials(string username, string password)
+        public bool ValidateUserCredentials(string email, string password)
         {
-            // Check the username and password against the database.
-            // If the username and password are valid, return true. Otherwise, return false.
+            // Check the email and password against the database.
+            // If the email and password are valid, return true. Otherwise, return false.
             // If the user is not found, return false.
 
-            // Check the username
-            if (_user == null || _user.Username != username)
+            // Check the email
+            if (_user == null || _user.Email != email)
             {
                 return false;
             }
@@ -56,12 +56,12 @@ namespace JobHuntingAssistant.Services
             return _user;
         }
 
-        public void AddUser(User user)
+        public Task AddUser(User user)
         {
             // Check if there is already an active user.
             // If there is, throw an exception.
             // Otherwise, set the active user to the new user.
-            
+
             // Check if there is already an active user.
             if (_user != null)
             {
@@ -70,14 +70,17 @@ namespace JobHuntingAssistant.Services
 
             // Set the active user to the new user.
             _user = user;
+
+            // Return a completed task
+            return Task.CompletedTask;
         }
 
-        public void UpdateUser(User user)
+        public Task<bool> UpdateUser(User user)
         {
             // Check if the user exists.
             // If the user exists, update the user.
             // Otherwise, throw an exception.
-            
+
             // Check if the user exists.
             if (_user == null)
             {
@@ -86,6 +89,8 @@ namespace JobHuntingAssistant.Services
 
             // Update the user.
             _user = user;
+
+            return Task.FromResult(true);
         }
     }
 }

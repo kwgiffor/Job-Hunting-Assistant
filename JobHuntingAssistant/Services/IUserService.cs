@@ -18,14 +18,14 @@ namespace JobHuntingAssistant.Services
         User GetUser(int id);
 
         /// <summary>
-        /// Adds a user to the database.
+        /// Asynchronously adds a user to the database.
         /// </summary>
-        void AddUser(User user);
+        Task AddUser(User user);
 
         /// <summary>
-        /// Updates a user in the database.
+        /// Updates a user in the database asynchronously.
         /// </summary>
-        void UpdateUser(User user);
+        Task<bool> UpdateUser(User user);
 
         /// <summary>
         /// Validates user credentials.

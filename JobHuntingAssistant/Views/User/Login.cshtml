@@ -19,7 +19,8 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" type="password"/>
+                    <input asp-for="Password" class="form-control" type="password" id="password"/>
+                    <input type="checkbox" id="togglePassword"> Show password
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -34,9 +35,22 @@
                     <input type="submit" value="Log in" class="btn btn-primary" />
                 </div>
                 <p>
-                    Don't have an account? <a asp-action="Register">Register as a new user</a>
+                    Don't have an account? <a asp-action="SignUp">Register as a new user</a>
                 </p>
             </form>
         </section>
     </div>
 </div>
+
+<script>
+var password = document.getElementById('password');
+var togglePassword = document.getElementById('togglePassword');
+
+togglePassword.addEventListener('change', function () {
+    if (togglePassword.checked) {
+        password.type = 'text';
+    } else {
+        password.type = 'password';
+    }
+});
+</script>
