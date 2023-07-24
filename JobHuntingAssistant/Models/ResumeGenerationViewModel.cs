@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace JobHuntingAssistant.Models
 {
    
@@ -9,6 +11,7 @@ namespace JobHuntingAssistant.Models
         /// <summary>
         /// The list of job listings
         /// </summary>
+        [Display(Name = "Job Listings")]
         public List<JobListing> JobListings { get; set; }
 
         /// <summary>

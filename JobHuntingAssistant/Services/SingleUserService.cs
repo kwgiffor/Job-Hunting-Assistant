@@ -29,7 +29,7 @@ namespace JobHuntingAssistant.Services
             return BCrypt.Net.BCrypt.Verify(password, _user.PasswordHash);
         }
 
-        public User GetUser(int id)
+        public User GetUserById(int id)
         {
             // Check the ID against the database.
             // If the ID is valid, return the user. Otherwise, return null.
@@ -56,7 +56,7 @@ namespace JobHuntingAssistant.Services
             return _user;
         }
 
-        public Task AddUser(User user)
+        public Task<int> AddUser(User user)
         {
             // Check if there is already an active user.
             // If there is, throw an exception.
@@ -72,7 +72,7 @@ namespace JobHuntingAssistant.Services
             _user = user;
 
             // Return a completed task
-            return Task.CompletedTask;
+            return Task.FromResult(0);
         }
 
         public Task<bool> UpdateUser(User user)

@@ -39,11 +39,12 @@ namespace JobHuntingAssistant.Services
             // Assuming the entire generated text is the content of the resume
             var content = generatedText;
 
-            return new Resume(                
-                parameters.User.Id,
-                parameters.JobListing.Id,
-                content
-            );
+            return new Resume()
+            {
+                UserId = parameters.User.Id,
+                JobListingId = parameters.JobListing.Id,
+                Content = content,
+            };
         }
     }
 }

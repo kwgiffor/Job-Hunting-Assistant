@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace JobHuntingAssistant.Models
@@ -10,11 +11,13 @@ namespace JobHuntingAssistant.Models
         /// <summary>
         /// The job listing to generate a new resume for.
         /// </summary>
+        [Required]
         public JobListing JobListing { get; set; }
         
         /// <summary>
         /// The user to generate a new resume for.
         /// </summary>
+        [Required]
         public User User { get; set; }
 
         public ResumeGenerationParameters(JobListing jobListing, User user)
@@ -34,16 +37,16 @@ namespace JobHuntingAssistant.Models
                 throw new InvalidOperationException("User and JobListing cannot be null");
             }
 
-            if (this.User.OldResume == null || this.JobListing.Title == null || this.JobListing.Description == null)
-            {
-                throw new InvalidOperationException("User.OldResume, JobListing.Title, and JobListing.Description cannot be null");
-            }
+            // if (this.User.OldResume == null || this.JobListing.Title == null || this.JobListing.Description == null)
+            // {
+            //     throw new InvalidOperationException("User.OldResume, JobListing.Title, and JobListing.Description cannot be null");
+            // }
 
             StringBuilder prompt = new();
 
             // Start with the user's old resume
             prompt.AppendLine("Old Resume:");
-            prompt.AppendLine(this.User.OldResume);
+            //prompt.AppendLine(this.User.OldResume);
 
             // Add a separator
             prompt.AppendLine("\n---\n");
